@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { observer } from 'mobx-react-lite';
+import { useNavigate } from 'react-router';
 
 import { Card } from '@penumbra-zone/ui/Card';
 import { Text } from '@penumbra-zone/ui/Text';
@@ -7,27 +8,35 @@ import { TextInput } from '@penumbra-zone/ui/TextInput';
 import { Toggle } from '@penumbra-zone/ui/Toggle';
 import { Button } from '@penumbra-zone/ui/Button';
 
-import { onboardingStore } from './state';
-import { keyStore } from './key-store';
+import { Pages } from 'shared/types/pages';
+import { useConnection } from 'entities/auth';
+import { onboardingStore } from '../model/state';
+import { generateKeys } from 'shared/commands/generate-keys';
+import { getBlockHeight } from 'shared/commands/get-block-height';
 
-interface ImportPageProps {
-  next: VoidFunction;
-}
+export const ImportPage = observer(() => {
+  const navigate = useNavigate();
+  useConnection((connected) => {
+    if (connected) {
+      navigate(Pages.sync);
+    }
+  });
 
-export const ImportPage = observer(({ next }: ImportPageProps) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const { phrase, setLength, update, isLong } = onboardingStore;
-  const { createKeys } = keyStore;
-
   const isInvalid = phrase.some((word) => word.trim().length === 0);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
-    await createKeys(phrase.join(' '));
+
+    await generateKeys(phrase.join(' '));
+    const block = await getBlockHeight();
+    console.log('Block height', block);
+
     setLoading(false);
-    next();
+    navigate(Pages.sync);
   };
 
   return (
@@ -70,3 +79,5 @@ export const ImportPage = observer(({ next }: ImportPageProps) => {
     </Card>
   )
 });
+
+export default ImportPage;

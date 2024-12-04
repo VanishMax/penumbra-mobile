@@ -6,7 +6,7 @@ import { Text } from '@penumbra-zone/ui/Text';
 import { TextInput } from '@penumbra-zone/ui/TextInput';
 import { Button } from '@penumbra-zone/ui/Button';
 
-import { onboardingStore } from './state';
+import { onboardingStore } from '../model/state';
 
 interface PasswordPageProps {
   next: VoidFunction;

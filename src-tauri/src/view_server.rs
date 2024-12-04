@@ -2,9 +2,7 @@ use std::ops::Deref;
 use std::str::FromStr;
 use std::sync::Arc;
 use penumbra_keys::FullViewingKey;
-use warp::Filter;
 use penumbra_keys::keys::{Bip44Path, SeedPhrase, SpendKey};
-use penumbra_proto::DomainType;
 use penumbra_view::ViewServer;
 use penumbra_proto::view::v1::view_service_server::ViewServiceServer;
 use tauri::State;
@@ -21,7 +19,7 @@ pub async fn is_connected(state: State<'_, Mutex<crate::AppState>>) -> Result<bo
 }
 
 #[tauri::command]
-pub async fn generate_keys(state: State<'_, Mutex<crate::AppState>>, seed_phrase: &str) -> Result<(Vec<u8>, Vec<u8>), String> {
+pub async fn generate_keys(state: State<'_, Mutex<crate::AppState>>, seed_phrase: &str) -> Result<bool, String> {
     let seed = match SeedPhrase::from_str(seed_phrase) {
         Ok(seed) => seed,
         Err(e) => return Err(format!("Error parsing seed phrase: {}", e)),
@@ -30,7 +28,6 @@ pub async fn generate_keys(state: State<'_, Mutex<crate::AppState>>, seed_phrase
 
     let spend_key: Arc<SpendKey> = Arc::new(SpendKey::from_seed_phrase_bip44(seed, &path));
     let full_viewing_key: Arc<FullViewingKey> = Arc::new(spend_key.full_viewing_key().clone());
-    let result = (spend_key.encode_to_vec(), full_viewing_key.encode_to_vec());
 
     let view_server = match ViewServer::load_or_initialize(
         None::<&str>,
@@ -61,13 +58,7 @@ pub async fn generate_keys(state: State<'_, Mutex<crate::AppState>>, seed_phrase
         }
     });
     
-    // Spawn the Warp server in the background.
-    tokio::spawn(async {
-        let routes = warp::path!("hello" / String).map(|name| format!("Hello, {}!", name));
-        warp::serve(routes).run(([127, 0, 0, 1], 3030)).await;
-    });
-    
-    Ok(result)
+    Ok(true)
 }
 
 #[tauri::command]

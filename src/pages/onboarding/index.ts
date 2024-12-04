@@ -1,3 +1,1 @@
-export { ImportPage } from './import';
-export { PasswordPage } from './password';
-export { SyncPage } from './sync';
+export { OnboardingRouter } from './ui/router';
