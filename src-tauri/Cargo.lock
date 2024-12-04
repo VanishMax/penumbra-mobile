@@ -4826,6 +4826,39 @@ dependencies = [
 ]
 
 [[package]]
+name = "penumbra-mobile"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "penumbra-app",
+ "penumbra-asset",
+ "penumbra-auction",
+ "penumbra-community-pool",
+ "penumbra-dex",
+ "penumbra-distributions",
+ "penumbra-fee",
+ "penumbra-funding",
+ "penumbra-governance",
+ "penumbra-ibc",
+ "penumbra-keys",
+ "penumbra-num",
+ "penumbra-proto",
+ "penumbra-sct",
+ "penumbra-shielded-pool",
+ "penumbra-stake",
+ "penumbra-view",
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-build",
+ "tauri-plugin-shell",
+ "tokio",
+ "tonic",
+ "tonic-web",
+ "warp",
+]
+
+[[package]]
 name = "penumbra-num"
 version = "0.80.5"
 source = "git+https://github.com/penumbra-zone/penumbra?tag=v0.80.5#43f6e9375354b4684d4232e89270244e803175f6"
@@ -5997,39 +6030,6 @@ dependencies = [
  "wasm-streams",
  "web-sys",
  "windows-registry",
-]
-
-[[package]]
-name = "rest-reminder"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "penumbra-app",
- "penumbra-asset",
- "penumbra-auction",
- "penumbra-community-pool",
- "penumbra-dex",
- "penumbra-distributions",
- "penumbra-fee",
- "penumbra-funding",
- "penumbra-governance",
- "penumbra-ibc",
- "penumbra-keys",
- "penumbra-num",
- "penumbra-proto",
- "penumbra-sct",
- "penumbra-shielded-pool",
- "penumbra-stake",
- "penumbra-view",
- "serde",
- "serde_json",
- "tauri",
- "tauri-build",
- "tauri-plugin-shell",
- "tokio",
- "tonic",
- "tonic-web",
- "warp",
 ]
 
 [[package]]

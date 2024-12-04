@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "rest-reminder",
+  "productName": "penumbra-mobile",
   "version": "0.1.0",
-  "identifier": "com.rest-reminder.app",
+  "identifier": "com.penumbra-mobile.app",
   "build": {
     "beforeDevCommand": "pnpm dev",
     "devUrl": "http://localhost:1420",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "rest-reminder",
+        "title": "penumbra-mobile",
         "width": 800,
         "height": 600
       }
