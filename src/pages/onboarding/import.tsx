@@ -1,4 +1,4 @@
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { Card } from '@penumbra-zone/ui/Card';
@@ -15,6 +15,8 @@ interface ImportPageProps {
 }
 
 export const ImportPage = observer(({ next }: ImportPageProps) => {
+  const [loading, setLoading] = useState<boolean>(false);
+
   const { phrase, setLength, update, isLong } = onboardingStore;
   const { createKeys } = keyStore;
 
@@ -22,7 +24,9 @@ export const ImportPage = observer(({ next }: ImportPageProps) => {
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true);
     await createKeys(phrase.join(' '));
+    setLoading(false);
     next();
   };
 
@@ -57,9 +61,9 @@ export const ImportPage = observer(({ next }: ImportPageProps) => {
             type='submit'
             priority='primary'
             actionType='accent'
-            disabled={isInvalid}
+            disabled={isInvalid || loading}
           >
-            Submit
+            {loading ? 'Loading...' : 'Submit'}
           </Button>
         </form>
       </div>

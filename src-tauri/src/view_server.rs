@@ -4,16 +4,24 @@ use std::sync::Arc;
 use penumbra_keys::FullViewingKey;
 use warp::Filter;
 use penumbra_keys::keys::{Bip44Path, SeedPhrase, SpendKey};
-use penumbra_view::ViewServer;
 use penumbra_proto::DomainType;
+use penumbra_view::ViewServer;
 use penumbra_proto::view::v1::view_service_server::ViewServiceServer;
-use tauri::{AppHandle, Manager, State};
+use tauri::State;
 use tauri::async_runtime::Mutex;
 
 const ENDPOINT: &str = "https://testnet.plinfra.net";
 
 #[tauri::command]
-pub async fn generate_keys(app_handle: AppHandle, state: State<'_, Mutex<crate::AppState>>, seed_phrase: &str) -> Result<(Vec<u8>, Vec<u8>), String> {
+pub async fn is_connected(state: State<'_, Mutex<crate::AppState>>) -> Result<bool, String> {
+    match state.lock().await.spend_key {
+        Some(_) => Ok(true),
+        None => Ok(false),
+    }
+}
+
+#[tauri::command]
+pub async fn generate_keys(state: State<'_, Mutex<crate::AppState>>, seed_phrase: &str) -> Result<(Vec<u8>, Vec<u8>), String> {
     let seed = match SeedPhrase::from_str(seed_phrase) {
         Ok(seed) => seed,
         Err(e) => return Err(format!("Error parsing seed phrase: {}", e)),

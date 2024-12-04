@@ -10,6 +10,10 @@ class KeyStore {
     makeAutoObservable(this);
   }
 
+  checkConnection = async (): Promise<boolean> => {
+    return await invoke('is_connected');
+  };
+
   createKeys = async (seedPhrase: string) => {
     const res: [number[], number[]] = await invoke('generate_keys', { seedPhrase });
 
