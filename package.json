@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@penumbra-zone/protobuf": "^6.3.0",
+    "@penumbra-zone/bech32m": "^10.0.0",
     "@penumbra-zone/ui": "^13.4.1",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-shell": "^2",

@@ -12,7 +12,6 @@ import { Pages } from 'shared/types/pages';
 import { useConnection } from 'entities/auth';
 import { onboardingStore } from '../model/state';
 import { generateKeys } from 'shared/commands/generate-keys';
-import { getBlockHeight } from 'shared/commands/get-block-height';
 
 export const ImportPage = observer(() => {
   const navigate = useNavigate();
@@ -32,8 +31,6 @@ export const ImportPage = observer(() => {
     setLoading(true);
 
     await generateKeys(phrase.join(' '));
-    const block = await getBlockHeight();
-    console.log('Block height', block);
 
     setLoading(false);
     navigate(Pages.sync);

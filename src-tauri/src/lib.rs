@@ -26,9 +26,10 @@ pub fn run() {
         })
         .plugin(tauri_plugin_shell::init())
         .invoke_handler(tauri::generate_handler![
-            view_server::is_connected, 
-            view_server::get_block_height, 
-            view_server::generate_keys
+            view_server::is_connected,
+            view_server::get_block_height,
+            view_server::generate_keys,
+            view_server::get_address_by_index,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
