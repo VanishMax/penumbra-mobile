@@ -1,0 +1,48 @@
+[package]
+name = "rest-reminder"
+version = "0.1.0"
+description = "A Tauri App"
+authors = ["you"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+# The `_lib` suffix may seem redundant but it is necessary
+# to make the lib name unique and wouldn't conflict with the bin name.
+# This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
+name = "rest_reminder_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-shell = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1.0.93"
+warp = "0.3"
+tonic = { version = "0.10.0", features = ["tls", "tls-webpki-roots"] }
+tonic-web = "0.10.0"
+tokio = { version = "1", features = ["full"] }
+penumbra-keys = { tag = "v0.80.5", git = "https://github.com/penumbra-zone/penumbra" }
+penumbra-asset = { tag = "v0.80.5", git = "https://github.com/penumbra-zone/penumbra" }
+penumbra-app = { tag = "v0.80.5", git = "https://github.com/penumbra-zone/penumbra" }
+penumbra-stake = { tag = "v0.80.5", git = "https://github.com/penumbra-zone/penumbra" }
+penumbra-shielded-pool = { tag = "v0.80.5", git = "https://github.com/penumbra-zone/penumbra" }
+penumbra-num = { tag = "v0.80.5", git = "https://github.com/penumbra-zone/penumbra" }
+penumbra-community-pool = { tag = "v0.80.5", git = "https://github.com/penumbra-zone/penumbra" }
+penumbra-distributions = { tag = "v0.80.5", git = "https://github.com/penumbra-zone/penumbra" }
+penumbra-fee = { tag = "v0.80.5", git = "https://github.com/penumbra-zone/penumbra" }
+penumbra-ibc = { tag = "v0.80.5", git = "https://github.com/penumbra-zone/penumbra" }
+penumbra-sct = { tag = "v0.80.5", git = "https://github.com/penumbra-zone/penumbra" }
+penumbra-dex = { tag = "v0.80.5", git = "https://github.com/penumbra-zone/penumbra" }
+penumbra-auction = { tag = "v0.80.5", git = "https://github.com/penumbra-zone/penumbra" }
+penumbra-governance = { tag = "v0.80.5", git = "https://github.com/penumbra-zone/penumbra" }
+penumbra-funding = { tag = "v0.80.5", git = "https://github.com/penumbra-zone/penumbra" }
+penumbra-view = { tag = "v0.80.5", git = "https://github.com/penumbra-zone/penumbra" }
+penumbra-proto = { tag = "v0.80.5", git = "https://github.com/penumbra-zone/penumbra", features = [
+    "rpc",
+] }
